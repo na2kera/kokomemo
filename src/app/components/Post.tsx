@@ -4,13 +4,14 @@ import React, { useState } from "react";
 const Post = () => {
   const [username, setUsername] = useState<String>("");
   const [detail, setDetail] = useState<String>("");
+  const [roomKey, setRoomKey] = useState<String>("");
   const [latitude, setLatitude] = useState(0.0);
   const [longitude, setLongitude] = useState(0.0);
 
   const getLocation = () => {
     const options = {
       enableHighAccuracy: true,
-      timeout: 5000,
+      timeout: 10000,
       maximumAge: 0,
     };
 
@@ -107,6 +108,24 @@ const Post = () => {
                 className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                   setDetail(e.target.value)
+                }
+              />
+            </div>
+            <div className="mt-6">
+              <label
+                htmlFor="detail"
+                className="block text-sm font-medium text-gray-700"
+              >
+                room-key
+              </label>
+              <input
+                id="roomKey"
+                name="roomKey"
+                type="text"
+                required
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 text-base focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                  setRoomKey(e.target.value)
                 }
               />
             </div>
