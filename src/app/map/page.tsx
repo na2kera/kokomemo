@@ -1,5 +1,10 @@
 "use client";
-import { GoogleMap, LoadScript } from "@react-google-maps/api";
+import {
+  GoogleMap,
+  InfoWindowF,
+  LoadScript,
+  MarkerF,
+} from "@react-google-maps/api";
 require("dotenv").config();
 
 function map() {
@@ -15,11 +20,9 @@ function map() {
         <LoadScript
           googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY || ""}
         >
-          <GoogleMap
-            mapContainerStyle={container}
-            center={position}
-            zoom={15}
-          ></GoogleMap>
+          <GoogleMap mapContainerStyle={container} center={position} zoom={15}>
+            <MarkerF position={position} label="label" />
+          </GoogleMap>
         </LoadScript>
       </div>
     </>
