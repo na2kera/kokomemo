@@ -16,6 +16,7 @@ model Post {
   date DateTime @default(now())
   user String
   detail String
+  roomKey String
   latitude String
   longitude String
 }
