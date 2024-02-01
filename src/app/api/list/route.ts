@@ -25,10 +25,10 @@ export const GET = async (req: Request, res: NextResponse) => {
 
 export const POST = async (req: Request, res: NextResponse) => {
   try {
-    const { user, detail, latitude, longitude } = await req.json();
+    const { user, detail, roomKey, latitude, longitude } = await req.json();
     await main();
     const post = await prisma.post.create({
-      data: { user, detail, latitude, longitude },
+      data: { user, detail, roomKey, latitude, longitude },
     });
     return NextResponse.json({ message: "Success", post }, { status: 200 });
   } catch (err) {
