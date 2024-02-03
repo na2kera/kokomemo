@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Post from "./components/Post";
+import Send from "./components/Send";
 require("dotenv").config();
 
 export default function Home() {
@@ -14,7 +14,7 @@ export default function Home() {
         </button>
       </Link>
 
-      <Post />
+      <Send />
     </>
   );
 }
