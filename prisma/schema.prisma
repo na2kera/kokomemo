@@ -11,7 +11,7 @@ datasource db {
   directUrl         = env("DIRECT_URL")
 }
 
-model Post {
+model Data {
   id Int @id @default(autoincrement())
   date DateTime @default(now())
   user String
