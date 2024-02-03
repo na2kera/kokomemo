@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-const Post = () => {
+const Send = () => {
   const [username, setUsername] = useState<String>("");
   const [detail, setDetail] = useState<String>("");
   const [roomKey, setRoomKey] = useState<String>("");
@@ -153,4 +153,4 @@ const Post = () => {
   );
 };
 
-export default Post;
+export default Send;
