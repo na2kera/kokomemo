@@ -7,12 +7,12 @@ import {
 } from "@react-google-maps/api";
 require("dotenv").config();
 
-function map() {
+const map = async () => {
   const container = {
     width: "100%",
     height: "100vh",
   };
-  const position = { lat: 61.2176, lng: -149.8997 };
+  const position = { lat: 35.6133956, lng: 140.1015564 };
 
   return (
     <>
@@ -27,6 +27,6 @@ function map() {
       </div>
     </>
   );
-}
+};
 
 export default map;
