@@ -5,9 +5,20 @@ import {
   LoadScript,
   MarkerF,
 } from "@react-google-maps/api";
-require("dotenv").config();
+import { useEffect, useState } from "react";
+import getLocationData from "./getLocationData";
 
-const map = async () => {
+const map = ({ params }: { params: { roomKey: string } }) => {
+  const [locationData, setLocationData] = useState([]);
+
+  useEffect(() => {
+    const fetchLocationData = async () => {
+      const locationData = await getLocationData(params.roomKey);
+      setLocationData(locationData);
+    };
+    console.log(locationData);
+    fetchLocationData();
+  }, []);
   const container = {
     width: "100%",
     height: "100vh",
@@ -21,7 +32,16 @@ const map = async () => {
           googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY || ""}
         >
           <GoogleMap mapContainerStyle={container} center={position} zoom={15}>
-            <MarkerF position={position} label="label" />
+            {locationData.map((data: Data) => (
+              <MarkerF
+                key={data.id}
+                position={{
+                  lat: parseFloat(data.latitude),
+                  lng: parseFloat(data.longitude),
+                }}
+                label={data.detail}
+              />
+            ))}
           </GoogleMap>
         </LoadScript>
       </div>
