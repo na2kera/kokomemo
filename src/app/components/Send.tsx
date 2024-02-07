@@ -79,7 +79,7 @@ const Send = () => {
           <form onSubmit={handleSubmit}>
             <div>
               <label
-                htmlFor="email"
+                htmlFor="user"
                 className="block text-sm font-medium text-gray-700"
               >
                 名前
@@ -116,7 +116,7 @@ const Send = () => {
             </div>
             <div className="mt-6">
               <label
-                htmlFor="detail"
+                htmlFor="roomKey"
                 className="block text-sm font-medium text-gray-700"
               >
                 ルーム名
