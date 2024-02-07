@@ -82,7 +82,7 @@ const Send = () => {
                 htmlFor="email"
                 className="block text-sm font-medium text-gray-700"
               >
-                username
+                名前
               </label>
               <input
                 id="user"
@@ -101,7 +101,7 @@ const Send = () => {
                 htmlFor="detail"
                 className="block text-sm font-medium text-gray-700"
               >
-                detail
+                コメント
               </label>
               <input
                 id="detail"
@@ -119,7 +119,7 @@ const Send = () => {
                 htmlFor="detail"
                 className="block text-sm font-medium text-gray-700"
               >
-                room-key
+                ルーム名
               </label>
               <input
                 id="roomKey"
