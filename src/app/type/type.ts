@@ -7,3 +7,7 @@ type Data = {
   latitude: string;
   longitude: string;
 };
+
+type FormDataType = {
+  roomName: string;
+};
