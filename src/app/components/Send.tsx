@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const Send = () => {
@@ -7,6 +8,7 @@ const Send = () => {
   const [roomKey, setRoomKey] = useState<String>("");
   const [latitude, setLatitude] = useState(0.0);
   const [longitude, setLongitude] = useState(0.0);
+  const router = useRouter();
 
   const getLocation = () => {
     const options = {
@@ -56,6 +58,7 @@ const Send = () => {
       });
       const data = await response.json();
       console.log(data);
+      router.push(`/map/${objectFormData.roomKey}`);
     } catch (err) {
       alert("入力内容が正しくありません。");
     }
