@@ -87,8 +87,8 @@ const map = ({ params }: { params: { roomKey: string } }) => {
                 {activeMarker === data.id ? (
                   <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
                     <div>
-                      <h2>{data.user}</h2>
-                      <p>表示しました</p>
+                      <p>{data.user}</p>
+                      <p className="text-xl">{data.detail}</p>
                     </div>
                   </InfoWindowF>
                 ) : null}
