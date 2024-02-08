@@ -13,6 +13,7 @@ const map = ({ params }: { params: { roomKey: string } }) => {
   const [latitudeNow, setLatitudeNow] = useState(34.6133956);
   const [longitudeNow, setLongitudeNow] = useState(140.1015564);
   const [locationData, setLocationData] = useState([]);
+  const [activeMarker, setActiveMarker] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchLocationData = async () => {
@@ -54,6 +55,13 @@ const map = ({ params }: { params: { roomKey: string } }) => {
     navigator.geolocation.getCurrentPosition(success, error, options);
   };
 
+  const handleActiveMarker = (markerId: number) => {
+    if (markerId === activeMarker) {
+      return setActiveMarker(null);
+    }
+    setActiveMarker(markerId);
+  };
+
   return (
     <>
       <div className="wrap">
@@ -69,7 +77,17 @@ const map = ({ params }: { params: { roomKey: string } }) => {
                   lng: parseFloat(data.longitude),
                 }}
                 label={data.user}
-              />
+                onClick={() => handleActiveMarker(data.id)}
+              >
+                {activeMarker === data.id ? (
+                  <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
+                    <div>
+                      <h2>{data.user}</h2>
+                      <p>表示しました</p>
+                    </div>
+                  </InfoWindowF>
+                ) : null}
+              </MarkerF>
             ))}
           </GoogleMap>
         </LoadScript>
