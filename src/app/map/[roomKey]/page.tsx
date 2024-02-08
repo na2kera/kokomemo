@@ -4,6 +4,7 @@ import {
   InfoWindowF,
   LoadScript,
   MarkerF,
+  useJsApiLoader,
 } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 import getLocationData from "./getLocationData";
@@ -14,6 +15,12 @@ const map = ({ params }: { params: { roomKey: string } }) => {
   const [longitudeNow, setLongitudeNow] = useState(140.1015564);
   const [locationData, setLocationData] = useState([]);
   const [activeMarker, setActiveMarker] = useState<number | null>(null);
+
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY || "",
+    libraries: ["geometry", "drawing"],
+  });
 
   useEffect(() => {
     const fetchLocationData = async () => {
@@ -65,9 +72,7 @@ const map = ({ params }: { params: { roomKey: string } }) => {
   return (
     <>
       <div className="wrap">
-        <LoadScript
-          googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY || ""}
-        >
+        {isLoaded && (
           <GoogleMap mapContainerStyle={container} center={position} zoom={20}>
             {locationData.map((data: Data) => (
               <MarkerF
@@ -90,7 +95,7 @@ const map = ({ params }: { params: { roomKey: string } }) => {
               </MarkerF>
             ))}
           </GoogleMap>
-        </LoadScript>
+        )}
         <Link href="/" className="fixed left-0 bottom-0">
           <button
             className="w-1/10 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
