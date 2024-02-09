@@ -101,6 +101,7 @@ const map = ({ params }: { params: { roomKey: string } }) => {
                     <div>
                       <p>{data.user}</p>
                       <p className="text-xl">{data.detail}</p>
+                      <p className="text-xl">{data.date}</p>
                     </div>
                   </InfoWindowF>
                 ) : null}
