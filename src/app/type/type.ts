@@ -1,6 +1,6 @@
 type Data = {
   id: number;
-  data: string;
+  date: string;
   user: string;
   detail: string;
   roomKey: string;
