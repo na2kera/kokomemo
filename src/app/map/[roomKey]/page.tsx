@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 import getLocationData from "./getLocationData";
 import Link from "next/link";
 
+const libraries: ("geometry" | "drawing")[] = ["geometry", "drawing"];
+
 const map = ({ params }: { params: { roomKey: string } }) => {
   const [latitudeNow, setLatitudeNow] = useState(34.6133956);
   const [longitudeNow, setLongitudeNow] = useState(140.1015564);
@@ -19,7 +21,7 @@ const map = ({ params }: { params: { roomKey: string } }) => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY || "",
-    libraries: ["geometry", "drawing"],
+    libraries,
   });
 
   useEffect(() => {
