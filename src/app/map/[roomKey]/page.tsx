@@ -76,6 +76,16 @@ const map = ({ params }: { params: { roomKey: string } }) => {
       <div className="wrap">
         {isLoaded && (
           <GoogleMap mapContainerStyle={container} center={position} zoom={20}>
+            <MarkerF
+              position={{
+                lat: latitudeNow,
+                lng: longitudeNow,
+              }}
+              options={{
+                icon: "https://maps.google.com/mapfiles/kml/pal3/icon28.png",
+                zIndex: 999,
+              }}
+            ></MarkerF>
             {locationData.map((data: Data) => (
               <MarkerF
                 key={data.id}
