@@ -64,12 +64,12 @@ const Form = () => {
   };
 
   return (
-    <div className="bg-white pb-20 px-4 shadow sm:rounded-lg sm:px-10">
+    <div className="bg-white pb-20 px-4 mt-3 shadow sm:rounded-lg sm:px-10">
       <form onSubmit={handleSubmit}>
         <div>
           <label
             htmlFor="user"
-            className="block text-sm font-medium text-gray-700"
+            className="block text-sm font-medium text-gray-700 pt-6"
           >
             名前
           </label>
