@@ -71,6 +71,17 @@ const map = ({ params }: { params: { roomKey: string } }) => {
     setActiveMarker(markerId);
   };
 
+  const japanDate = (data: string) => {
+    const date = new Date(data);
+    return Date.parse(date.toLocaleString("ja-JP"));
+  };
+
+  const agoDate = (data: string) => {
+    const agoDate = Date.now() - japanDate(data);
+    const min = Math.floor(agoDate / 1000 / 60);
+    return min;
+  };
+
   return (
     <>
       <div className="wrap">
@@ -101,7 +112,7 @@ const map = ({ params }: { params: { roomKey: string } }) => {
                     <div>
                       <p>{data.user}</p>
                       <p className="text-xl">{data.detail}</p>
-                      <p className="text-xl">{data.date}</p>
+                      <p>{agoDate(data.date)}分前</p>
                     </div>
                   </InfoWindowF>
                 ) : null}
