@@ -7,6 +7,7 @@ const Form = () => {
   const [roomKey, setRoomKey] = useState<String>("");
   const [latitude, setLatitude] = useState(0.0);
   const [longitude, setLongitude] = useState(0.0);
+  const [bool, setBool] = useState(true);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -54,10 +55,12 @@ const Form = () => {
 
       setLatitude(crd.latitude);
       setLongitude(crd.longitude);
+      setBool(false);
     }
 
     function error(err: any) {
       console.warn(`ERROR(${err.code}): ${err.message}`);
+      setBool(true);
     }
 
     navigator.geolocation.getCurrentPosition(success, error, options);
@@ -133,7 +136,8 @@ const Form = () => {
         <div className="mt-6">
           <button
             type="submit"
-            className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            disabled={bool}
+            className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-400 disabled:cursor-not-allowed disabled:border-gray-200"
           >
             新規メモを追加
           </button>
