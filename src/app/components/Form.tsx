@@ -24,7 +24,7 @@ const Form = () => {
       objectFormData.latitude = latitude.toString();
       objectFormData.longitude = longitude.toString();
 
-      const response = await fetch(`http://localhost:3000/api/list`, {
+      const response = await fetch(`/api/list`, {
         method: "POST",
         headers: headers,
         body: JSON.stringify(objectFormData),
