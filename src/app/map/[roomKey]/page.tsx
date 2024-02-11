@@ -9,6 +9,9 @@ import {
 import { useEffect, useState } from "react";
 import getLocationData from "./getLocationData";
 import Link from "next/link";
+import { IconButton } from "@mui/material";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+import NearMeIcon from "@mui/icons-material/NearMe";
 
 const libraries: ("geometry" | "drawing")[] = ["geometry", "drawing"];
 
@@ -120,21 +123,40 @@ const map = ({ params }: { params: { roomKey: string } }) => {
             ))}
           </GoogleMap>
         )}
-        <Link href="/" className="fixed left-0 bottom-0">
-          <button
-            className="w-1/10 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            type="button"
+        <Link href="/" className="fixed left-4 bottom-4">
+          <IconButton
+            sx={{
+              borderRadius: "50%",
+              height: 50,
+              width: 50,
+              backgroundColor: "#4F46E5 !important",
+              "&:focus": {
+                outline: "none", // フォーカス時のアウトラインを無効化
+                boxShadow: `0 0 0 2px #fff, 0 0 0 4px #3f51b5`, // フォーカス時にインディゴ500のリングを追加
+              },
+            }}
           >
-            戻る
-          </button>
+            <ArrowBackIosNewIcon sx={{ color: "white" }} />
+          </IconButton>
         </Link>
-        <button
-          className="fixed right-0 bottom-0 w-1/10 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-          type="button"
+        <IconButton
           onClick={getLocationNow}
+          sx={{
+            borderRadius: "50%",
+            height: 50,
+            width: 50,
+            position: "fixed",
+            right: 20,
+            bottom: 15,
+            backgroundColor: "#4F46E5 !important",
+            "&:focus": {
+              outline: "none",
+              boxShadow: `0 0 0 2px #fff, 0 0 0 4px #3f51b5`,
+            },
+          }}
         >
-          現在位置
-        </button>
+          <NearMeIcon sx={{ color: "white" }} />
+        </IconButton>
       </div>
     </>
   );
