@@ -130,8 +130,8 @@ const map = ({ params }: { params: { roomKey: string } }) => {
               width: 50,
               backgroundColor: "#4F46E5 !important",
               "&:focus": {
-                outline: "none", // フォーカス時のアウトラインを無効化
-                boxShadow: `0 0 0 2px #fff, 0 0 0 4px #3f51b5`, // フォーカス時にインディゴ500のリングを追加
+                outline: "none",
+                boxShadow: `0 0 0 2px #fff, 0 0 0 4px #3f51b5`,
               },
             }}
           >
