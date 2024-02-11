@@ -2,7 +2,6 @@
 import {
   GoogleMap,
   InfoWindowF,
-  LoadScript,
   MarkerF,
   useJsApiLoader,
 } from "@react-google-maps/api";
