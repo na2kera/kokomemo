@@ -99,27 +99,56 @@ const map = ({ params }: { params: { roomKey: string } }) => {
                 zIndex: 999,
               }}
             ></MarkerF>
-            {locationData.map((data: Data) => (
-              <MarkerF
-                key={data.id}
-                position={{
-                  lat: parseFloat(data.latitude),
-                  lng: parseFloat(data.longitude),
-                }}
-                label={data.user}
-                onClick={() => handleActiveMarker(data.id)}
-              >
-                {activeMarker === data.id ? (
-                  <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
-                    <div>
-                      <p>{data.user}</p>
-                      <p className="text-xl">{data.detail}</p>
-                      <p>{agoDate(data.date)}分前</p>
-                    </div>
-                  </InfoWindowF>
-                ) : null}
-              </MarkerF>
-            ))}
+            {locationData
+              .filter((data: Data) => agoDate(data.date) < 15)
+              .map((data: Data) => (
+                <MarkerF
+                  key={data.id}
+                  position={{
+                    lat: parseFloat(data.latitude),
+                    lng: parseFloat(data.longitude),
+                  }}
+                  label={data.user}
+                  zIndex={998}
+                  onClick={() => handleActiveMarker(data.id)}
+                >
+                  {activeMarker === data.id ? (
+                    <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
+                      <div>
+                        <p>{data.user}</p>
+                        <p className="text-xl">{data.detail}</p>
+                        <p>{agoDate(data.date)}分前</p>
+                      </div>
+                    </InfoWindowF>
+                  ) : null}
+                </MarkerF>
+              ))}
+            {locationData
+              .filter(
+                (data: Data) =>
+                  agoDate(data.date) >= 15 && agoDate(data.date) < 6000
+              )
+              .map((data: Data) => (
+                <MarkerF
+                  key={data.id}
+                  position={{
+                    lat: parseFloat(data.latitude),
+                    lng: parseFloat(data.longitude),
+                  }}
+                  icon={"https://maps.google.com/mapfiles/ms/micons/blue.png"}
+                  onClick={() => handleActiveMarker(data.id)}
+                >
+                  {activeMarker === data.id ? (
+                    <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
+                      <div>
+                        <p>{data.user}</p>
+                        <p className="text-xl">{data.detail}</p>
+                        <p>{agoDate(data.date)}分前</p>
+                      </div>
+                    </InfoWindowF>
+                  ) : null}
+                </MarkerF>
+              ))}
           </GoogleMap>
         )}
         <Link href="/" className="fixed left-4 bottom-4">
