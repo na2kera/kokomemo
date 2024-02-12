@@ -94,10 +94,8 @@ const map = ({ params }: { params: { roomKey: string } }) => {
                 lat: latitudeNow,
                 lng: longitudeNow,
               }}
-              options={{
-                icon: "https://maps.google.com/mapfiles/kml/pal3/icon28.png",
-                zIndex: 999,
-              }}
+              icon={"https://maps.google.com/mapfiles/kml/pal3/icon28.png"}
+              zIndex={999}
             ></MarkerF>
             {locationData
               .filter((data: Data) => agoDate(data.date) < 15)
