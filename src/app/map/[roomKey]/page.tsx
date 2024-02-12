@@ -124,7 +124,7 @@ const map = ({ params }: { params: { roomKey: string } }) => {
             {locationData
               .filter(
                 (data: Data) =>
-                  agoDate(data.date) >= 15 && agoDate(data.date) < 6000
+                  agoDate(data.date) >= 15 && agoDate(data.date) < 60
               )
               .map((data: Data) => (
                 <MarkerF
