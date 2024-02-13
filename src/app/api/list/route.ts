@@ -1,8 +1,7 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
-
-export const prisma = new PrismaClient();
+import prisma from "./prisma";
 
 async function main() {
   try {
