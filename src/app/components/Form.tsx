@@ -32,7 +32,7 @@ const Form = () => {
       });
       const data = await response.json();
       console.log(data);
-      router.push(`/map/${objectFormData.roomKey}`);
+      router.push(`/Map/${objectFormData.roomKey}`);
     } catch (err) {
       alert("入力内容が正しくありません。");
     }
