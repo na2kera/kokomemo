@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
-import { main, prisma } from "../route";
+import { prisma } from "../route";
+import { main } from "../main";
 
 export const GET = async (req: Request, res: NextResponse) => {
   try {
