@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
-
-export const prisma = new PrismaClient();
+import prisma from "./prisma";
 
 async function main() {
   try {
@@ -11,7 +9,7 @@ async function main() {
   }
 }
 
-export const GET = async (req: Request, res: NextResponse) => {
+export async function GET(req: Request, res: NextResponse) {
   try {
     const roomKey: string = req.url.split("/list/")[1];
     await main();
@@ -27,4 +25,4 @@ export const GET = async (req: Request, res: NextResponse) => {
   } finally {
     await prisma.$disconnect();
   }
-};
+}
