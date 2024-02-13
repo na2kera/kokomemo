@@ -8,7 +8,7 @@ const Room = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    router.push(`/map/${roomNameRef.current?.value}`);
+    router.push(`/Map/${roomNameRef.current?.value}`);
   };
 
   return (
