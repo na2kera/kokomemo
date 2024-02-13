@@ -14,7 +14,7 @@ import NearMeIcon from "@mui/icons-material/NearMe";
 
 const libraries: ("geometry" | "drawing")[] = ["geometry", "drawing"];
 
-const map = ({ params }: { params: { roomKey: string } }) => {
+const Map = ({ params }: { params: { roomKey: string } }) => {
   const [latitudeNow, setLatitudeNow] = useState(35.6802117);
   const [longitudeNow, setLongitudeNow] = useState(139.7576692);
   const [locationData, setLocationData] = useState([]);
@@ -188,4 +188,4 @@ const map = ({ params }: { params: { roomKey: string } }) => {
   );
 };
 
-export default map;
+export default Map;
