@@ -5,7 +5,6 @@
 
 */
 -- DropTable
-DROP TABLE "Post";
 
 -- CreateTable
 CREATE TABLE "Data" (
