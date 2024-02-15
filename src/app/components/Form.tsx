@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
+import { useUser } from "@clerk/nextjs";
 
 const Form = () => {
   const [username, setUsername] = useState<String>("");
@@ -9,6 +10,8 @@ const Form = () => {
   const [longitude, setLongitude] = useState(0.0);
   const [bool, setBool] = useState(true);
   const router = useRouter();
+
+  const { user } = useUser();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -79,6 +82,7 @@ const Form = () => {
           <input
             id="user"
             name="user"
+            value={user?.firstName || ""}
             type="text"
             autoComplete="name"
             required
