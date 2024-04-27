@@ -17,6 +17,8 @@ const libraries: ("geometry" | "drawing")[] = ["geometry", "drawing"];
 const Map = ({ params }: { params: { roomKey: string } }) => {
   const [latitudeNow, setLatitudeNow] = useState(35.6802117);
   const [longitudeNow, setLongitudeNow] = useState(139.7576692);
+  const [screenLongitude, setScreenLongitude] = useState(140.7576692);
+  const [screenLatitude, setScreenLatitude] = useState(36.6802117);
   const [locationData, setLocationData] = useState([]);
   const [activeMarker, setActiveMarker] = useState<number | null>(null);
 
@@ -26,19 +28,32 @@ const Map = ({ params }: { params: { roomKey: string } }) => {
     libraries,
   });
 
+  const handleActiveMarker = (markerId: number) => {
+    if (markerId === activeMarker) {
+      return setActiveMarker(null);
+    }
+    setActiveMarker(markerId);
+  };
+
   useEffect(() => {
     const fetchLocationData = async () => {
       const locationData = await getLocationData(params.roomKey);
       setLocationData(locationData);
     };
-    console.log(locationData);
+    console.log(`this is ${locationData}`);
     fetchLocationData();
+    getLocationNow();
+    console.log(
+      `ok! this set is ${latitudeNow}, ${longitudeNow}, ${screenLatitude}, ${screenLongitude}`
+    );
   }, []);
+
   const container = {
     width: "100%",
     height: "100vh",
   };
-  const position = { lat: latitudeNow, lng: longitudeNow };
+
+  const position = { lat: screenLatitude, lng: screenLongitude };
 
   const getLocationNow = () => {
     const options = {
@@ -57,6 +72,8 @@ const Map = ({ params }: { params: { roomKey: string } }) => {
 
       setLatitudeNow(crd.latitude);
       setLongitudeNow(crd.longitude);
+      setScreenLatitude(crd.latitude);
+      setScreenLongitude(crd.longitude);
     }
 
     function error(err: any) {
@@ -64,13 +81,6 @@ const Map = ({ params }: { params: { roomKey: string } }) => {
     }
 
     navigator.geolocation.getCurrentPosition(success, error, options);
-  };
-
-  const handleActiveMarker = (markerId: number) => {
-    if (markerId === activeMarker) {
-      return setActiveMarker(null);
-    }
-    setActiveMarker(markerId);
   };
 
   const japanDate = (data: string) => {
