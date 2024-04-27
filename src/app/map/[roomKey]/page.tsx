@@ -1,10 +1,5 @@
 "use client";
-import {
-  GoogleMap,
-  InfoWindowF,
-  MarkerF,
-  useJsApiLoader,
-} from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 import getLocationData from "./getLocationData";
 import { IconButton } from "@mui/material";
@@ -21,7 +16,6 @@ const Map = ({ params }: { params: { roomKey: string } }) => {
   const [screenLongitude, setScreenLongitude] = useState(135);
   const [screenLatitude, setScreenLatitude] = useState(35);
   const [locationData, setLocationData] = useState([]);
-  const [activeMarker, setActiveMarker] = useState<number | null>(null);
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -29,24 +23,13 @@ const Map = ({ params }: { params: { roomKey: string } }) => {
     libraries,
   });
 
-  const handleActiveMarker = (markerId: number) => {
-    if (markerId === activeMarker) {
-      return setActiveMarker(null);
-    }
-    setActiveMarker(markerId);
-  };
-
   useEffect(() => {
     const fetchLocationData = async () => {
       const locationData = await getLocationData(params.roomKey);
       setLocationData(locationData);
     };
-    console.log(`this is ${locationData}`);
     fetchLocationData();
     getLocationNow();
-    console.log(
-      `ok! this set is ${latitudeNow}, ${longitudeNow}, ${screenLatitude}, ${screenLongitude}`
-    );
   }, []);
 
   const container = {
@@ -65,11 +48,6 @@ const Map = ({ params }: { params: { roomKey: string } }) => {
 
     function success(pos: any) {
       const crd = pos.coords;
-
-      console.log("Your current position is:");
-      console.log(`Latitude : ${crd.latitude}`);
-      console.log(`Longitude: ${crd.longitude}`);
-      console.log(`More or less ${crd.accuracy} meters.`);
 
       setLatitudeNow(crd.latitude);
       setLongitudeNow(crd.longitude);
