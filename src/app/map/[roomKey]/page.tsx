@@ -7,11 +7,10 @@ import {
 } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 import getLocationData from "./getLocationData";
-
 import { IconButton } from "@mui/material";
-
 import NearMeIcon from "@mui/icons-material/NearMe";
 import BackButton from "@/app/components/BackButton";
+import MyPosition from "@/app/components/MyPosition";
 
 const libraries: ("geometry" | "drawing")[] = ["geometry", "drawing"];
 
@@ -100,14 +99,7 @@ const Map = ({ params }: { params: { roomKey: string } }) => {
       <div className="wrap">
         {isLoaded && (
           <GoogleMap mapContainerStyle={container} center={position} zoom={20}>
-            <MarkerF
-              position={{
-                lat: latitudeNow,
-                lng: longitudeNow,
-              }}
-              icon={"https://maps.google.com/mapfiles/kml/pal3/icon28.png"}
-              zIndex={999}
-            ></MarkerF>
+            <MyPosition latNow={latitudeNow} lonNow={longitudeNow} />
             {locationData
               .filter((data: Data) => agoDate(data.date) < 15)
               .map((data: Data) => (
