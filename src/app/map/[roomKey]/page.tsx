@@ -11,6 +11,7 @@ import { IconButton } from "@mui/material";
 import NearMeIcon from "@mui/icons-material/NearMe";
 import BackButton from "@/app/components/BackButton";
 import MyPosition from "@/app/components/MyPosition";
+import PositionPins from "@/app/components/PositionPins";
 
 const libraries: ("geometry" | "drawing")[] = ["geometry", "drawing"];
 
@@ -83,73 +84,13 @@ const Map = ({ params }: { params: { roomKey: string } }) => {
     navigator.geolocation.getCurrentPosition(success, error, options);
   };
 
-  const japanDate = (data: string) => {
-    const date = new Date(data);
-    return Date.parse(date.toLocaleString("ja-JP"));
-  };
-
-  const agoDate = (data: string) => {
-    const agoDate = Date.now() - japanDate(data);
-    const min = Math.floor(agoDate / 1000 / 60);
-    return min;
-  };
-
   return (
     <>
       <div className="wrap">
         {isLoaded && (
           <GoogleMap mapContainerStyle={container} center={position} zoom={20}>
             <MyPosition latNow={latitudeNow} lonNow={longitudeNow} />
-            {locationData
-              .filter((data: Data) => agoDate(data.date) < 15)
-              .map((data: Data) => (
-                <MarkerF
-                  key={data.id}
-                  position={{
-                    lat: parseFloat(data.latitude),
-                    lng: parseFloat(data.longitude),
-                  }}
-                  label={data.user}
-                  zIndex={998}
-                  onClick={() => handleActiveMarker(data.id)}
-                >
-                  {activeMarker === data.id ? (
-                    <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
-                      <div>
-                        <p>{data.user}</p>
-                        <p className="text-xl">{data.detail}</p>
-                        <p>{agoDate(data.date)}分前</p>
-                      </div>
-                    </InfoWindowF>
-                  ) : null}
-                </MarkerF>
-              ))}
-            {locationData
-              .filter(
-                (data: Data) =>
-                  agoDate(data.date) >= 15 && agoDate(data.date) < 60
-              )
-              .map((data: Data) => (
-                <MarkerF
-                  key={data.id}
-                  position={{
-                    lat: parseFloat(data.latitude),
-                    lng: parseFloat(data.longitude),
-                  }}
-                  icon={"https://maps.google.com/mapfiles/ms/micons/blue.png"}
-                  onClick={() => handleActiveMarker(data.id)}
-                >
-                  {activeMarker === data.id ? (
-                    <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
-                      <div>
-                        <p>{data.user}</p>
-                        <p className="text-xl">{data.detail}</p>
-                        <p>{agoDate(data.date)}分前</p>
-                      </div>
-                    </InfoWindowF>
-                  ) : null}
-                </MarkerF>
-              ))}
+            <PositionPins locationData={locationData} />
           </GoogleMap>
         )}
         <BackButton />
