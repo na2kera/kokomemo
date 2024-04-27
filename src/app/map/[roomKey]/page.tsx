@@ -1,24 +1,21 @@
 "use client";
-import {
-  GoogleMap,
-  InfoWindowF,
-  MarkerF,
-  useJsApiLoader,
-} from "@react-google-maps/api";
+import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 import getLocationData from "./getLocationData";
-import Link from "next/link";
 import { IconButton } from "@mui/material";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import NearMeIcon from "@mui/icons-material/NearMe";
+import BackButton from "@/app/components/BackButton";
+import MyPosition from "@/app/components/MyPosition";
+import PositionPins from "@/app/components/PositionPins";
 
 const libraries: ("geometry" | "drawing")[] = ["geometry", "drawing"];
 
 const Map = ({ params }: { params: { roomKey: string } }) => {
-  const [latitudeNow, setLatitudeNow] = useState(35.6802117);
-  const [longitudeNow, setLongitudeNow] = useState(139.7576692);
+  const [latitudeNow, setLatitudeNow] = useState(135);
+  const [longitudeNow, setLongitudeNow] = useState(35);
+  const [screenLongitude, setScreenLongitude] = useState(135);
+  const [screenLatitude, setScreenLatitude] = useState(35);
   const [locationData, setLocationData] = useState([]);
-  const [activeMarker, setActiveMarker] = useState<number | null>(null);
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -31,14 +28,16 @@ const Map = ({ params }: { params: { roomKey: string } }) => {
       const locationData = await getLocationData(params.roomKey);
       setLocationData(locationData);
     };
-    console.log(locationData);
     fetchLocationData();
+    getLocationNow();
   }, []);
+
   const container = {
     width: "100%",
     height: "100vh",
   };
-  const position = { lat: latitudeNow, lng: longitudeNow };
+
+  const position = { lat: screenLatitude, lng: screenLongitude };
 
   const getLocationNow = () => {
     const options = {
@@ -50,13 +49,10 @@ const Map = ({ params }: { params: { roomKey: string } }) => {
     function success(pos: any) {
       const crd = pos.coords;
 
-      console.log("Your current position is:");
-      console.log(`Latitude : ${crd.latitude}`);
-      console.log(`Longitude: ${crd.longitude}`);
-      console.log(`More or less ${crd.accuracy} meters.`);
-
       setLatitudeNow(crd.latitude);
       setLongitudeNow(crd.longitude);
+      setScreenLatitude(crd.latitude);
+      setScreenLongitude(crd.longitude);
     }
 
     function error(err: any) {
@@ -66,105 +62,16 @@ const Map = ({ params }: { params: { roomKey: string } }) => {
     navigator.geolocation.getCurrentPosition(success, error, options);
   };
 
-  const handleActiveMarker = (markerId: number) => {
-    if (markerId === activeMarker) {
-      return setActiveMarker(null);
-    }
-    setActiveMarker(markerId);
-  };
-
-  const japanDate = (data: string) => {
-    const date = new Date(data);
-    return Date.parse(date.toLocaleString("ja-JP"));
-  };
-
-  const agoDate = (data: string) => {
-    const agoDate = Date.now() - japanDate(data);
-    const min = Math.floor(agoDate / 1000 / 60);
-    return min;
-  };
-
   return (
     <>
       <div className="wrap">
         {isLoaded && (
           <GoogleMap mapContainerStyle={container} center={position} zoom={20}>
-            <MarkerF
-              position={{
-                lat: latitudeNow,
-                lng: longitudeNow,
-              }}
-              icon={"https://maps.google.com/mapfiles/kml/pal3/icon28.png"}
-              zIndex={999}
-            ></MarkerF>
-            {locationData
-              .filter((data: Data) => agoDate(data.date) < 15)
-              .map((data: Data) => (
-                <MarkerF
-                  key={data.id}
-                  position={{
-                    lat: parseFloat(data.latitude),
-                    lng: parseFloat(data.longitude),
-                  }}
-                  label={data.user}
-                  zIndex={998}
-                  onClick={() => handleActiveMarker(data.id)}
-                >
-                  {activeMarker === data.id ? (
-                    <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
-                      <div>
-                        <p>{data.user}</p>
-                        <p className="text-xl">{data.detail}</p>
-                        <p>{agoDate(data.date)}分前</p>
-                      </div>
-                    </InfoWindowF>
-                  ) : null}
-                </MarkerF>
-              ))}
-            {locationData
-              .filter(
-                (data: Data) =>
-                  agoDate(data.date) >= 15 && agoDate(data.date) < 60
-              )
-              .map((data: Data) => (
-                <MarkerF
-                  key={data.id}
-                  position={{
-                    lat: parseFloat(data.latitude),
-                    lng: parseFloat(data.longitude),
-                  }}
-                  icon={"https://maps.google.com/mapfiles/ms/micons/blue.png"}
-                  onClick={() => handleActiveMarker(data.id)}
-                >
-                  {activeMarker === data.id ? (
-                    <InfoWindowF onCloseClick={() => setActiveMarker(null)}>
-                      <div>
-                        <p>{data.user}</p>
-                        <p className="text-xl">{data.detail}</p>
-                        <p>{agoDate(data.date)}分前</p>
-                      </div>
-                    </InfoWindowF>
-                  ) : null}
-                </MarkerF>
-              ))}
+            <MyPosition latNow={latitudeNow} lonNow={longitudeNow} />
+            <PositionPins locationData={locationData} />
           </GoogleMap>
         )}
-        <Link href="/" className="fixed left-4 bottom-4">
-          <IconButton
-            sx={{
-              borderRadius: "50%",
-              height: 50,
-              width: 50,
-              backgroundColor: "#4F46E5 !important",
-              "&:focus": {
-                outline: "none",
-                boxShadow: `0 0 0 2px #fff, 0 0 0 4px #3f51b5`,
-              },
-            }}
-          >
-            <ArrowBackIosNewIcon sx={{ color: "white" }} />
-          </IconButton>
-        </Link>
+        <BackButton />
         <IconButton
           onClick={getLocationNow}
           sx={{
