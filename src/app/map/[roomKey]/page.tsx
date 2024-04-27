@@ -7,18 +7,19 @@ import {
 } from "@react-google-maps/api";
 import { useEffect, useState } from "react";
 import getLocationData from "./getLocationData";
-import Link from "next/link";
+
 import { IconButton } from "@mui/material";
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
+
 import NearMeIcon from "@mui/icons-material/NearMe";
+import BackButton from "@/app/components/BackButton";
 
 const libraries: ("geometry" | "drawing")[] = ["geometry", "drawing"];
 
 const Map = ({ params }: { params: { roomKey: string } }) => {
-  const [latitudeNow, setLatitudeNow] = useState(35.6802117);
-  const [longitudeNow, setLongitudeNow] = useState(139.7576692);
-  const [screenLongitude, setScreenLongitude] = useState(140.7576692);
-  const [screenLatitude, setScreenLatitude] = useState(36.6802117);
+  const [latitudeNow, setLatitudeNow] = useState(135);
+  const [longitudeNow, setLongitudeNow] = useState(35);
+  const [screenLongitude, setScreenLongitude] = useState(135);
+  const [screenLatitude, setScreenLatitude] = useState(35);
   const [locationData, setLocationData] = useState([]);
   const [activeMarker, setActiveMarker] = useState<number | null>(null);
 
@@ -159,22 +160,7 @@ const Map = ({ params }: { params: { roomKey: string } }) => {
               ))}
           </GoogleMap>
         )}
-        <Link href="/" className="fixed left-4 bottom-4">
-          <IconButton
-            sx={{
-              borderRadius: "50%",
-              height: 50,
-              width: 50,
-              backgroundColor: "#4F46E5 !important",
-              "&:focus": {
-                outline: "none",
-                boxShadow: `0 0 0 2px #fff, 0 0 0 4px #3f51b5`,
-              },
-            }}
-          >
-            <ArrowBackIosNewIcon sx={{ color: "white" }} />
-          </IconButton>
-        </Link>
+        <BackButton />
         <IconButton
           onClick={getLocationNow}
           sx={{
