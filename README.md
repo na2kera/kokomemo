@@ -1,37 +1,17 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+現地での待ち合わせ用のアプリです。メッセージでの連絡事項とマップの共有がこのアプリだけで完結します。
 
-## Getting Started
+## 使い方
 
-First, run the development server:
+### 認証
+<img width="326" alt="スクリーンショット 2024-04-28 12 59 53" src="https://github.com/na2kera/kokomemo/assets/139093152/d9183c0d-55e9-4c3f-a220-6efc33c8bc48"><br>
+Googleアカウント等で認証
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### 自分の場所とメモを共有
+<img width="327" alt="スクリーンショット 2024-04-28 12 50 29" src="https://github.com/na2kera/kokomemo/assets/139093152/3026e5d3-9b3d-435e-b40c-3bea0e1d47a7"><br>
+必要事項を記入してメモを作成する。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### マップを共有
+<img width="327" alt="スクリーンショット 2024-04-28 12 58 09" src="https://github.com/na2kera/kokomemo/assets/139093152/611f04f9-ed28-40c6-9083-78844cdf57a2"><br>
+現地での集合場所の共有や、遅れてきた人への連絡もできます。作成したメモの経過時間によって色が変わり、リアルタイムに行われているものが一目でわかります。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# kokomemo
