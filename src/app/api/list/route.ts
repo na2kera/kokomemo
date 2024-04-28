@@ -11,18 +11,6 @@ async function main() {
   }
 }
 
-// export const GET = async (req: Request, res: NextResponse) => {
-//   try {
-//     await main();
-//     const posts = await prisma.data.findMany();
-//     return NextResponse.json({ message: "Success", posts }, { status: 200 });
-//   } catch (err) {
-//     return NextResponse.json({ message: "Error", err }, { status: 500 });
-//   } finally {
-//     await prisma.$disconnect();
-//   }
-// };
-
 export async function POST(req: Request, res: NextResponse) {
   try {
     const { user, detail, roomKey, latitude, longitude } = await req.json();
