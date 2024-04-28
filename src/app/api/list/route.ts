@@ -1,5 +1,3 @@
-import { Prisma, PrismaClient } from "@prisma/client";
-import { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
 import prisma from "./prisma";
 
@@ -10,18 +8,6 @@ async function main() {
     return Error("接続に失敗しました");
   }
 }
-
-// export const GET = async (req: Request, res: NextResponse) => {
-//   try {
-//     await main();
-//     const posts = await prisma.data.findMany();
-//     return NextResponse.json({ message: "Success", posts }, { status: 200 });
-//   } catch (err) {
-//     return NextResponse.json({ message: "Error", err }, { status: 500 });
-//   } finally {
-//     await prisma.$disconnect();
-//   }
-// };
 
 export async function POST(req: Request, res: NextResponse) {
   try {
